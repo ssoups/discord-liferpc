@@ -1,15 +1,6 @@
 const RPC = require('discord-rpc')
 const client = new RPC.Client({transport: 'ipc'})
 const { clientId, dateofbirth } = require('./SECRETS.json')
-var i = 1;
-
-/* Notes
-
-    Request limit is 10,000/m.
-    The max amount of request is 16/s.
-
-*/
-
 
 client.on('ready', () => {
     client.request('SET_ACTIVITY', {
@@ -42,9 +33,7 @@ client.on('ready', () => {
             instance: true
         }
     })
-
     foreverLoop(client)
-
 })
 
 
@@ -59,13 +48,11 @@ function calculateAge (birthDate) {
         otherDate.getMonth() == birthDate.getMonth() && otherDate.getDate() < birthDate.getDate()) {
         years--;
     }
-
     return(years);
 }
 
 function foreverLoop(client){
     setTimeout(function() {
-        i++;
         client.request('SET_ACTIVITY', {
             pid: process.pid, 
             activity: {
